@@ -14,7 +14,15 @@ import styled from "styled-components";
 function App() {
   return (
     <Router>
-      <Container fluid="true">
+      <Container
+        fluid="true"
+        style={{
+          paddingRight: "15px",
+          paddingLeft: "15px",
+          marginRight: "auto",
+          marginLeft: "auto",
+        }}
+      >
         <Row>
           <Col xs={3} className="center-horizontal">
             <Sidebar></Sidebar>
