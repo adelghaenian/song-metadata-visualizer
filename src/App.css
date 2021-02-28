@@ -1,0 +1,13 @@
+body {
+  background-color: #000;
+}
+.header {
+  background-color: #fff;
+}
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+  color: #ffffff;
+}
+.center-horizontal {
+  text-align: center;
+}
