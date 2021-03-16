@@ -1,4 +1,4 @@
-import { Navbar, Nav, NavLink as NavLinkBootstrap } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
@@ -13,7 +13,7 @@ const Styles = styled.div`
       margin-right: 40px;
     }
     a: hover {
-      text-decoration: none;
+      text-decoration-line: unset;
     }
     .active {
       color: white;

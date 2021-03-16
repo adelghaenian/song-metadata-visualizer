@@ -23,16 +23,25 @@ const Search = styled.input`
   }
 `;
 
-const InputContainer = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 15px;
-`;
-
-export default function SearchBox() {
-  return (
-    <form>
-      <Search type="text" name="search" placeholder="Search" />
-    </form>
-  );
+class SearchBox extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.props.onInputChange(e.target.value);
+  }
+  render() {
+    return (
+      <form>
+        <Search
+          type="text"
+          name="search"
+          placeholder="Search"
+          onChange={this.handleChange}
+        />
+      </form>
+    );
+  }
 }
+export default SearchBox;
