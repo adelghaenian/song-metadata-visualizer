@@ -1,9 +1,11 @@
 import React from "react";
 import "../Styles/SearchFilter.css";
+import searchTerm from "./ResultList";
+import handleChange from "./ResultList";
 
 export default function SearchFilter() {
   return (
-    <div class="radio-toolbar">
+    <div className="radio-toolbar">
       <input
         type="radio"
         id="radioMusic"
@@ -13,13 +15,18 @@ export default function SearchFilter() {
       />
       <label for="radioMusic">Music</label>
 
-      <input type="radio" id="radioArtist" name="filter" value="artist" />
+      <input
+        type="radio"
+        id="radioArtist"
+        name="filter"
+        value="artist"
+        value={searchTerm}
+        onChange={handleChange}
+      />
       <label for="radioArtist">Artist</label>
 
       <input type="radio" id="radioGenre" name="filter" value="genre" />
       <label for="radioGenre">Genre</label>
-      <p>d</p>
-      <p>d</p>
     </div>
   );
 }

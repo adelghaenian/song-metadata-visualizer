@@ -17,3 +17,63 @@ body {
   margin-right: "auto";
   margin-left: "auto";
 }
+
+.fixed-sidebar {
+  background-color: #212330;
+  height: 100%;
+  width: 20em;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: unset;
+  scrollbar-width: none;
+  text-align: center;
+}
+.fixed-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.text {
+  position: relative;
+  font-size: 14px;
+  width: 17em; /* Could be anything you like. */
+  text-align: left;
+}
+
+.text-concat {
+  position: relative;
+  display: inline-block;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 1.2em; /* (Number of lines you want visible) * (line-height) */
+  line-height: 1.2em;
+  text-align: justify;
+}
+
+.text.ellipsis::after {
+  content: "";
+  position: absolute;
+  right: -12px;
+  bottom: 20px;
+}
+.song-text {
+  font-weight: bold;
+  font-size: medium;
+  margin-top: 2px;
+}
+.song-selected {
+  color: white;
+  background-color: #4db784;
+  margin-bottom: 10px;
+  padding-top: 13px;
+  padding-left: 30px;
+}
+
+.song-notselected {
+  color: #969696;
+  margin-bottom: 10px;
+  padding-top: 13px;
+  padding-left: 30px;
+}
