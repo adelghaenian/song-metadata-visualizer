@@ -18,8 +18,14 @@ export default class App extends React.Component {
     this.state = {
       selected: new Set(),
       music_data: new Array(),
+      music_preview_id: "",
     };
     this.onSelectedChange = this.onSelectedChange.bind(this);
+    this.onPreviewChange = this.onPreviewChange.bind(this);
+  }
+
+  onPreviewChange(id) {
+    this.setState({ music_preview_id: id });
   }
 
   onSelectedChange(id) {
@@ -52,6 +58,8 @@ export default class App extends React.Component {
             {console.log(this.state.music_data.length)}
             {this.state.music_data.length > 0 && (
               <Sidebar
+                onPreviewChange={this.onPreviewChange}
+                music_preview_id={this.state.music_preview_id}
                 music_data={this.state.music_data}
                 onSelectedChange={this.onSelectedChange}
                 selected={this.state.selected}

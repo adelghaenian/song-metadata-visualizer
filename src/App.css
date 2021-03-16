@@ -77,3 +77,10 @@ body {
   padding-top: 13px;
   padding-left: 30px;
 }
+
+.play-button {
+  opacity: 50%;
+}
+.play-button:hover {
+  opacity: 90%;
+}

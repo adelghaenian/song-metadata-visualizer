@@ -31,11 +31,14 @@ export default class Sidebar extends React.Component {
     return (
       <div className="fixed-sidebar">
         <Fixed>
-          <MusicPreview music_preview_src="https://open.spotify.com/embed/track/4ktmfZJXIi6VGktaD34NAl"></MusicPreview>
+          <MusicPreview
+            music_preview_id={this.props.music_preview_id}
+          ></MusicPreview>
           <SearchBox onInputChange={this.searchTermHandler}> </SearchBox>
           <SearchFilter> </SearchFilter>
         </Fixed>
         <ResultList
+          onPreviewChange={this.props.onPreviewChange}
           music_data={this.props.music_data}
           searchTerm={searchTerm}
           selected={this.props.selected}

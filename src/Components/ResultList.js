@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FixedSizeList as List } from "react-window";
+import playButton from "../assets/play-button.svg";
 
 const ListItem = styled.div`
   display: -webkit-inline-box;
@@ -35,9 +36,22 @@ export default class ResultList extends React.Component {
               : "song-notselected"
           }
         >
-          <p style={{ width: "3em", textAlign: "left" }}>{index + 1}</p>
+          <p style={{ width: "3em", textAlign: "left" }}>
+            <img
+              className="play-button"
+              height="25"
+              src={playButton}
+              alt="P"
+              onClick={(e) => {
+                e.stopPropagation();
+                this.props.onPreviewChange(results[index].id);
+              }}
+            />
+          </p>
           <div class="text ellipsis">
-            <span class="text-concat song-text">{results[index].name}</span>
+            <span class="text-concat song-text">
+              {index + 1 + "- " + results[index].name}
+            </span>
           </div>
         </div>
       </div>
