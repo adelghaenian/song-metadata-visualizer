@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
 import Navbar from "./Components/Navbar";
@@ -11,39 +11,67 @@ import Sidebar from "./Components/Sidebar";
 import { Layout } from "./Components/Layout";
 import data_with_csv from "./dataset/data_with_pca.csv";
 import { csv } from "d3";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: new Set(),
-      music_data: new Array(),
-      music_preview_id: "",
-    };
-    this.onSelectedChange = this.onSelectedChange.bind(this);
-    this.onPreviewChange = this.onPreviewChange.bind(this);
-  }
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#75ada0",
+    },
+    secondary: {
+      main: "#31b475",
+    },
+  },
+});
 
-  onPreviewChange(id) {
-    this.setState({ music_preview_id: id });
-  }
+function App() {
+  const [selected, setSelected] = useState(new Set());
+  const [music_data, setMusicData] = useState(new Array());
+  const [music_preview_id, setMusicPreviewId] = useState("");
+  const [range_min_value, setRangeMinValue] = useState(0);
+  const [range_max_value, setRangeMaxValue] = useState(2500);
 
-  onSelectedChange(id) {
-    if (this.state.selected.has(id)) {
-      this.state.selected.delete(id);
-    } else {
-      this.state.selected.add(id);
-    }
-  }
+  const onPreviewChange = useCallback(
+    (id) => {
+      setMusicPreviewId(id);
+    },
+    [music_preview_id]
+  );
 
-  componentDidMount() {
+  const onRangeChange = useCallback(
+    (newValue) => {
+      setRangeMinValue(newValue[0]);
+      setRangeMaxValue(newValue[1]);
+    },
+    [range_min_value, range_max_value]
+  );
+
+  const onSelectedChange = useCallback(
+    (s) => {
+      if (selected.has(s)) {
+        const newSet = new Set(selected);
+        newSet.delete(s);
+        setSelected(newSet);
+        console.log("found");
+      } else {
+        const newSet = new Set(selected);
+        newSet.add(s);
+        setSelected(newSet);
+      }
+    },
+    [selected]
+  );
+
+  const size = useWindowSize();
+
+  useEffect(() => {
     csv(data_with_csv).then((data) => {
-      this.setState({ music_data: data });
+      setMusicData(data);
     });
-  }
+  }, []);
 
-  render() {
-    return (
+  return (
+    <MuiThemeProvider theme={theme}>
       <Router>
         <Container
           fluid="true"
@@ -55,21 +83,36 @@ export default class App extends React.Component {
           }}
         >
           <Row>
-            {console.log(this.state.music_data.length)}
-            {this.state.music_data.length > 0 && (
+            {music_data.length > 0 && (
               <Sidebar
-                onPreviewChange={this.onPreviewChange}
-                music_preview_id={this.state.music_preview_id}
-                music_data={this.state.music_data}
-                onSelectedChange={this.onSelectedChange}
-                selected={this.state.selected}
+                onPreviewChange={onPreviewChange}
+                music_preview_id={music_preview_id}
+                music_data={music_data}
+                onSelectedChange={onSelectedChange}
+                selected={selected}
+                device_height={size.height}
               ></Sidebar>
             )}
             <Col>
               <Navbar />
               <Layout>
                 <Switch>
-                  <Route path="/selection" component={Selection}></Route>
+                  <Route
+                    path="/selection"
+                    component={() => (
+                      <Selection
+                        music_data={music_data}
+                        onSelectedChange={onSelectedChange}
+                        onPreviewChange={onPreviewChange}
+                        onRangeChange={onRangeChange}
+                        selected={selected}
+                        device_height={size.height}
+                        device_width={size.width}
+                        range_max_value={range_max_value}
+                        range_min_value={range_min_value}
+                      />
+                    )}
+                  ></Route>
                   <Route path="/compare" component={Compare}></Route>
                   <Route path="/overyears" component={Overyears}></Route>
                   <Route component={NoMatch}></Route>
@@ -79,6 +122,29 @@ export default class App extends React.Component {
           </Row>
         </Container>
       </Router>
-    );
-  }
+    </MuiThemeProvider>
+  );
 }
+
+// Hook
+function useWindowSize() {
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return windowSize;
+}
+export default App;

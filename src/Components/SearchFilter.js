@@ -1,11 +1,16 @@
 import React from "react";
 import "../Styles/SearchFilter.css";
-import searchTerm from "./ResultList";
-import handleChange from "./ResultList";
+
+import Slider from "@material-ui/core/Slider";
+
+function valuetext(value) {
+  return `${value}°C`;
+}
 
 export default function SearchFilter() {
   return (
-    <div className="radio-toolbar">
+    <div>
+      {/* <div className="radio-toolbar">
       <input
         type="radio"
         id="radioMusic"
@@ -27,6 +32,7 @@ export default function SearchFilter() {
 
       <input type="radio" id="radioGenre" name="filter" value="genre" />
       <label for="radioGenre">Genre</label>
+    </div> */}
     </div>
   );
 }

@@ -15,3 +15,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.selected {
+  fill: greenyellow !important;
+  opacity: 1 !important;
+}
+.dot {
+  fill: #75ada0;
+  opacity: 0.5;
+}

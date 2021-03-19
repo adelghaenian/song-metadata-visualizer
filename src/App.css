@@ -61,26 +61,51 @@ body {
 .song-text {
   font-weight: bold;
   font-size: medium;
-  margin-top: 2px;
+  margin-top: 5px;
 }
 .song-selected {
   color: white;
   background-color: #4db784;
-  margin-bottom: 10px;
-  padding-top: 13px;
-  padding-left: 30px;
+  padding-top: 10px;
+  padding-left: 10px;
 }
 
 .song-notselected {
   color: #969696;
-  margin-bottom: 10px;
-  padding-top: 13px;
-  padding-left: 30px;
+  padding-top: 10px;
+  padding-left: 10px;
 }
 
 .play-button {
-  opacity: 50%;
+  opacity: 30%;
 }
 .play-button:hover {
   opacity: 90%;
+}
+
+.title {
+  margin: 25px;
+  margin-left: 80px;
+  margin-top: 50px;
+  color: #787878;
+  font-weight: 200;
+  font-size: 1.8em;
+  max-width: 800px;
+}
+
+.tooltip {
+  position: absolute;
+  font-size: 12px;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+  background-color: #31b475;
+  border-radius: 10px;
+  color: #ffffff;
+}
+
+.range-slider {
+  margin-left: 50px;
+  color: #31b475;
+  opacity: "0.4";
 }

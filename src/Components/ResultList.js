@@ -1,22 +1,14 @@
 import React from "react";
-import styled from "styled-components";
 import { FixedSizeList as List } from "react-window";
 import playButton from "../assets/play-button.svg";
-
-const ListItem = styled.div`
-  display: -webkit-inline-box;
-  margin-bottom: -6px;
-`;
 
 export default class ResultList extends React.Component {
   constructor(props) {
     super(props);
     this.handleSelectedChange = this.handleSelectedChange.bind(this);
-    console.log(this.props.music_data);
   }
-  handleSelectedChange(id) {
-    this.props.onSelectedChange(id);
-    this.forceUpdate();
+  handleSelectedChange(s) {
+    this.props.onSelectedChange(s);
   }
   render() {
     const searchTerm = this.props.searchTerm;
@@ -24,14 +16,13 @@ export default class ResultList extends React.Component {
       li.name.toLowerCase().includes(searchTerm)
     );
 
-    const Row = ({ index, key, style }) => (
+    const Row = ({ index, style }) => (
       <div className="test" style={style}>
         <div
-          style={{ boxSizing: "border-box", display: "-webkit-inline-box" }}
-          key={results[index].id}
-          onClick={() => this.handleSelectedChange(results[index].id)}
+          style={{ display: "-webkit-inline-box" }}
+          onClick={() => this.handleSelectedChange(results[index])}
           className={
-            this.props.selected.has(results[index].id)
+            this.props.selected.has(results[index])
               ? "song-selected"
               : "song-notselected"
           }
@@ -57,9 +48,16 @@ export default class ResultList extends React.Component {
       </div>
     );
     return (
-      <List width={340} height={600} itemCount={results.length} itemSize={63}>
-        {Row}
-      </List>
+      <>
+        <List
+          width={340}
+          height={this.props.device_height - 343}
+          itemCount={results.length}
+          itemSize={55}
+        >
+          {Row}
+        </List>
+      </>
     );
   }
 }

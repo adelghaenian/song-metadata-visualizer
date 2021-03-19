@@ -27,7 +27,6 @@ export default class Sidebar extends React.Component {
   }
   render() {
     const searchTerm = this.state.searchTerm;
-    const selected = this.state.selected;
     return (
       <div className="fixed-sidebar">
         <Fixed>
@@ -43,6 +42,7 @@ export default class Sidebar extends React.Component {
           searchTerm={searchTerm}
           selected={this.props.selected}
           onSelectedChange={this.props.onSelectedChange}
+          device_height={this.props.device_height}
         ></ResultList>
       </div>
     );
