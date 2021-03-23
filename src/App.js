@@ -15,7 +15,10 @@ import Overyears from "./Components/Overyears";
 import NoMatch from "./Components/NoMatch";
 import Sidebar from "./Components/Sidebar";
 import { Layout } from "./Components/Layout";
-import data_with_csv from "./dataset/data_with_pca.csv";
+import data_with_pca from "./dataset/data_with_pca.csv";
+import artist_data from "./dataset/data_by_artist.csv";
+import genre_data from "./dataset/data_by_genres.csv";
+import year_data from "./dataset/data_by_year.csv";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -38,6 +41,9 @@ const theme = createMuiTheme({
 function App() {
   const [selected, setSelected] = useState(new Set());
   const [music_data, setMusicData] = useState(new Array());
+  const [artist_data, setArtistData] = useState(new Array());
+  const [genre_data, setGenreData] = useState(new Array());
+  const [year_data, setYearData] = useState(new Array());
   const [chartTypeValue, setChartTypeValue] = React.useState("radar");
   const [music_preview_id, setMusicPreviewId] = useState(
     "1YYhDizHx7PnDhAhko6cDS"
@@ -46,10 +52,6 @@ function App() {
   const [range_max_value, setRangeMaxValue] = useState(10000);
   const [loadedDS, setLoadedDS] = useState(0);
   const [open, setOpen] = React.useState(true);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
@@ -93,10 +95,21 @@ function App() {
   const size = useWindowSize();
 
   useEffect(() => {
-    csv(data_with_csv).then((data) => {
-      setMusicData(data);
-      handleClose();
+    csv(genre_data).then((data) => {
+      setGenreData(data);
       handleLoadedDS(1);
+      csv(artist_data).then((data) => {
+        setArtistData(data);
+        handleLoadedDS(2);
+        csv(year_data).then((data) => {
+          setYearData(data);
+          handleLoadedDS(3);
+          csv(data_with_pca).then((data) => {
+            setMusicData(data);
+            handleClose();
+          });
+        });
+      });
     });
   }, []);
 
@@ -169,12 +182,11 @@ function App() {
           <Dialog
             open={open}
             keepMounted
-            onClose={handleClose}
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"
           >
             <DialogTitle id="alert-dialog-slide-title">
-              {"Dataset(" + (loadedDS + 1) + ") is loading!"}
+              {"Dataset(" + (loadedDS + 1) + "/4) is loading!"}
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-slide-description">
