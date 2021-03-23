@@ -11,6 +11,7 @@ import Sidebar from "./Components/Sidebar";
 import { Layout } from "./Components/Layout";
 import data_with_csv from "./dataset/data_with_pca.csv";
 import { csv } from "d3";
+import createHistory from "history/createBrowserHistory";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -28,7 +29,6 @@ function App() {
   const history = createHistory({
     basename: process.env.PUBLIC_URL,
   });
-  const store = configureStore({ history });
   const [selected, setSelected] = useState(new Set());
   const [music_data, setMusicData] = useState(new Array());
   const [chartTypeValue, setChartTypeValue] = React.useState("radar");
