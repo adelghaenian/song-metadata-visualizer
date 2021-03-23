@@ -25,6 +25,10 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  const history = createHistory({
+    basename: process.env.PUBLIC_URL,
+  });
+  const store = configureStore({ history });
   const [selected, setSelected] = useState(new Set());
   const [music_data, setMusicData] = useState(new Array());
   const [chartTypeValue, setChartTypeValue] = React.useState("radar");
@@ -75,7 +79,7 @@ function App() {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <Router>
+      <Router history={history} basename={process.env.PUBLIC_URL}>
         <Container
           fluid="true"
           style={{
