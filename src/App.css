@@ -77,10 +77,10 @@ body {
 }
 
 .play-button {
-  opacity: 30%;
+  opacity: 0.3;
 }
 .play-button:hover {
-  opacity: 90%;
+  opacity: 0.9;
 }
 
 .title {
