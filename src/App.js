@@ -16,6 +16,11 @@ import NoMatch from "./Components/NoMatch";
 import Sidebar from "./Components/Sidebar";
 import { Layout } from "./Components/Layout";
 import data_with_csv from "./dataset/data_with_pca.csv";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 import { csv } from "d3";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
@@ -39,6 +44,20 @@ function App() {
   );
   const [range_min_value, setRangeMinValue] = useState(7000);
   const [range_max_value, setRangeMaxValue] = useState(10000);
+  const [loadedDS, setLoadedDS] = useState(0);
+  const [open, setOpen] = React.useState(true);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLoadedDS = (i) => {
+    setLoadedDS(i);
+  };
 
   const onPreviewChange = useCallback(
     (id) => {
@@ -76,6 +95,8 @@ function App() {
   useEffect(() => {
     csv(data_with_csv).then((data) => {
       setMusicData(data);
+      handleClose();
+      handleLoadedDS(1);
     });
   }, []);
 
@@ -145,6 +166,23 @@ function App() {
               </Layout>
             </Col>
           </Row>
+          <Dialog
+            open={open}
+            keepMounted
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle id="alert-dialog-slide-title">
+              {"Dataset(" + (loadedDS + 1) + ") is loading!"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-slide-description">
+                Datasets are too large and have been stored in the git lfs.
+                Thus, the loading might be slow. Thanks for your patience!
+              </DialogContentText>
+            </DialogContent>
+          </Dialog>
         </Container>
       </HashRouter>
     </MuiThemeProvider>
