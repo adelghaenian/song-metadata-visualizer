@@ -1,6 +1,11 @@
 import "./App.css";
 import React, { useState, useCallback, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
 import Navbar from "./Components/Navbar";
 import Compare from "./Components/Compare";
@@ -104,6 +109,9 @@ function App() {
               <Navbar />
               <Layout>
                 <Switch>
+                  <Route exact path="/">
+                    <Redirect to="/compare" />
+                  </Route>
                   <Route
                     path="/selection"
                     component={() => (
