@@ -27,9 +27,12 @@ const theme = createMuiTheme({
 function App() {
   const [selected, setSelected] = useState(new Set());
   const [music_data, setMusicData] = useState(new Array());
-  const [music_preview_id, setMusicPreviewId] = useState("");
-  const [range_min_value, setRangeMinValue] = useState(0);
-  const [range_max_value, setRangeMaxValue] = useState(2500);
+  const [chartTypeValue, setChartTypeValue] = React.useState("radar");
+  const [music_preview_id, setMusicPreviewId] = useState(
+    "1YYhDizHx7PnDhAhko6cDS"
+  );
+  const [range_min_value, setRangeMinValue] = useState(7000);
+  const [range_max_value, setRangeMaxValue] = useState(10000);
 
   const onPreviewChange = useCallback(
     (id) => {
@@ -113,7 +116,20 @@ function App() {
                       />
                     )}
                   ></Route>
-                  <Route path="/compare" component={Compare}></Route>
+                  <Route
+                    path="/compare"
+                    component={() => (
+                      <Compare
+                        chartTypeValue={chartTypeValue}
+                        setChartTypeValue={setChartTypeValue}
+                        music_data={music_data}
+                        onSelectedChange={onSelectedChange}
+                        selected={selected}
+                        device_height={size.height}
+                        device_width={size.width}
+                      />
+                    )}
+                  ></Route>
                   <Route path="/overyears" component={Overyears}></Route>
                   <Route component={NoMatch}></Route>
                 </Switch>

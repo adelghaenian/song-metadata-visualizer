@@ -109,3 +109,14 @@ body {
   color: #31b475;
   opacity: "0.4";
 }
+
+.compare-legend {
+  color: #ffffff;
+  padding-right: 32px;
+  padding-left: 32px;
+  height: 40px;
+  margin-left: 18px;
+  border-radius: 32px;
+  font-weight: 600;
+  padding-top: 6px;
+}

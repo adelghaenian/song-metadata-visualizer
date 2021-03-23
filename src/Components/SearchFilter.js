@@ -9,7 +9,7 @@ function valuetext(value) {
 
 export default function SearchFilter() {
   return (
-    <div>
+    <div style={{ minHeight: "50px" }}>
       {/* <div className="radio-toolbar">
       <input
         type="radio"
