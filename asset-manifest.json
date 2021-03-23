@@ -1,29 +1,29 @@
 {
   "files": {
     "main.css": "/song-metadata-visualizer/static/css/main.2a97e5d1.chunk.css",
-    "main.js": "/song-metadata-visualizer/static/js/main.0e3875df.chunk.js",
-    "main.js.map": "/song-metadata-visualizer/static/js/main.0e3875df.chunk.js.map",
-    "runtime-main.js": "/song-metadata-visualizer/static/js/runtime-main.e7fce548.js",
-    "runtime-main.js.map": "/song-metadata-visualizer/static/js/runtime-main.e7fce548.js.map",
+    "main.js": "/song-metadata-visualizer/static/js/main.113af6e5.chunk.js",
+    "main.js.map": "/song-metadata-visualizer/static/js/main.113af6e5.chunk.js.map",
+    "runtime-main.js": "/song-metadata-visualizer/static/js/runtime-main.1df8abfc.js",
+    "runtime-main.js.map": "/song-metadata-visualizer/static/js/runtime-main.1df8abfc.js.map",
     "static/css/2.150d169a.chunk.css": "/song-metadata-visualizer/static/css/2.150d169a.chunk.css",
-    "static/js/2.753b5de9.chunk.js": "/song-metadata-visualizer/static/js/2.753b5de9.chunk.js",
-    "static/js/2.753b5de9.chunk.js.map": "/song-metadata-visualizer/static/js/2.753b5de9.chunk.js.map",
-    "static/js/3.c32239c9.chunk.js": "/song-metadata-visualizer/static/js/3.c32239c9.chunk.js",
-    "static/js/3.c32239c9.chunk.js.map": "/song-metadata-visualizer/static/js/3.c32239c9.chunk.js.map",
+    "static/js/2.85ffe282.chunk.js": "/song-metadata-visualizer/static/js/2.85ffe282.chunk.js",
+    "static/js/2.85ffe282.chunk.js.map": "/song-metadata-visualizer/static/js/2.85ffe282.chunk.js.map",
+    "static/js/3.1c83b793.chunk.js": "/song-metadata-visualizer/static/js/3.1c83b793.chunk.js",
+    "static/js/3.1c83b793.chunk.js.map": "/song-metadata-visualizer/static/js/3.1c83b793.chunk.js.map",
     "index.html": "/song-metadata-visualizer/index.html",
     "static/css/2.150d169a.chunk.css.map": "/song-metadata-visualizer/static/css/2.150d169a.chunk.css.map",
     "static/css/main.2a97e5d1.chunk.css.map": "/song-metadata-visualizer/static/css/main.2a97e5d1.chunk.css.map",
-    "static/js/2.753b5de9.chunk.js.LICENSE.txt": "/song-metadata-visualizer/static/js/2.753b5de9.chunk.js.LICENSE.txt",
+    "static/js/2.85ffe282.chunk.js.LICENSE.txt": "/song-metadata-visualizer/static/js/2.85ffe282.chunk.js.LICENSE.txt",
     "static/media/bar.98aff0fa.svg": "/song-metadata-visualizer/static/media/bar.98aff0fa.svg",
     "static/media/data_with_pca.997e96c5.csv": "/song-metadata-visualizer/static/media/data_with_pca.997e96c5.csv",
     "static/media/play-button.774660e9.svg": "/song-metadata-visualizer/static/media/play-button.774660e9.svg",
     "static/media/radar.680555f8.svg": "/song-metadata-visualizer/static/media/radar.680555f8.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.e7fce548.js",
+    "static/js/runtime-main.1df8abfc.js",
     "static/css/2.150d169a.chunk.css",
-    "static/js/2.753b5de9.chunk.js",
+    "static/js/2.85ffe282.chunk.js",
     "static/css/main.2a97e5d1.chunk.css",
-    "static/js/main.0e3875df.chunk.js"
+    "static/js/main.113af6e5.chunk.js"
   ]
 }
