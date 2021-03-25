@@ -172,7 +172,11 @@ function Selection(props) {
   }, [props.range_min_value, props.range_max_value]);
 
   return (
-    <div>
+    <div
+      style={{
+        paddingLeft: "20em",
+      }}
+    >
       <h2 className="title">
         Select a music from the left list, or select music from the plot. Closer
         nodes (musics) means similarity between musics!

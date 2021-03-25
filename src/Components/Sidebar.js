@@ -1,10 +1,10 @@
-import React from "react";
 import MusicPreview from "./MusicPreview";
 import SearchBox from "./SearchBox";
 import SearchFilter from "./SearchFilter";
 import ResultList from "./ResultList";
 import styled from "styled-components";
-
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 const Fixed = styled.div`
   position: -webkit-sticky; /* Safari */
   position: sticky;
@@ -12,39 +12,40 @@ const Fixed = styled.div`
   background-color: #212330;
 `;
 
-export default class Sidebar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchTerm: "",
-    };
-    this.searchTermHandler = this.searchTermHandler.bind(this);
-  }
-  searchTermHandler(term) {
-    this.setState({
-      searchTerm: term,
-    });
-  }
-  render() {
-    const searchTerm = this.state.searchTerm;
-    return (
-      <div className="fixed-sidebar">
-        <Fixed>
-          <MusicPreview
-            music_preview_id={this.props.music_preview_id}
-          ></MusicPreview>
-          <SearchBox onInputChange={this.searchTermHandler}> </SearchBox>
-          <SearchFilter> </SearchFilter>
-        </Fixed>
-        <ResultList
-          onPreviewChange={this.props.onPreviewChange}
-          music_data={this.props.music_data}
-          searchTerm={searchTerm}
-          selected={this.props.selected}
-          onSelectedChange={this.props.onSelectedChange}
-          device_height={this.props.device_height}
-        ></ResultList>
-      </div>
-    );
-  }
+export default function Sidebar(props) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const searchTermHandler = (term) => {
+    setSearchTerm(term);
+  };
+  const location = useLocation();
+  console.log(location.pathname);
+  return (
+    <div>
+      {location.pathname == "/overyears" ? (
+        <></>
+      ) : (
+        <div className="fixed-sidebar">
+          <Fixed>
+            <MusicPreview
+              music_preview_id={props.music_preview_id}
+            ></MusicPreview>
+            <SearchBox onInputChange={searchTermHandler}> </SearchBox>
+            <SearchFilter
+              filter={props.filter}
+              handleFilter={props.handleFilter}
+            ></SearchFilter>
+          </Fixed>
+          <ResultList
+            onPreviewChange={props.onPreviewChange}
+            music_data={props.music_data}
+            searchTerm={searchTerm}
+            selected={props.selected}
+            onSelectedChange={props.onSelectedChange}
+            device_height={props.device_height}
+          ></ResultList>
+        </div>
+      )}
+    </div>
+  );
 }

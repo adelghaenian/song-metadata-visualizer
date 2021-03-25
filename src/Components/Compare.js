@@ -5,6 +5,7 @@ import { select, axisBottom, axisRight, scaleLinear } from "d3";
 import "../Styles/compareChart.css";
 import barIcon from "../assets/bar.svg";
 import radarIcon from "../assets/radar.svg";
+
 function Compare(props) {
   const barChartHeight = props.device_height - 248;
   const handleChartType = (event) => {
@@ -26,8 +27,13 @@ function Compare(props) {
         options.size + options.captionMargin * 2
       } ${options.size}`, // custom viewBox ?
     // smoothing: noSmoothing, // shape smoothing function
-    axisProps: () => ({ className: "axis" }),
-    scaleProps: () => ({ className: "scale", fill: "none" }),
+    axisProps: () => ({
+      className: "axis",
+    }),
+    scaleProps: () => ({
+      className: "scale",
+      fill: "none",
+    }),
     shapeProps: () => ({
       className: "shape",
       mouseEnter: (shape) => {
@@ -340,15 +346,23 @@ function Compare(props) {
   }, [props.selected]);
 
   return (
-    <div>
+    <div
+      style={{
+        paddingLeft: "20em",
+      }}
+    >
       <div className="row">
         <div className="col-md-4">
-          <h2 className="title">Select musics from the list to compare.</h2>
+          <h2 className="title"> Select musics from the list to compare. </h2>
         </div>
-        <div className="col-md-6"></div>
+        <div className="col-md-6"> </div>
         <div className="col-md-2">
-          {" "}
-          <div style={{ display: "-webkit-inline-flex", marginTop: "50px" }}>
+          <div
+            style={{
+              display: "-webkit-inline-flex",
+              marginTop: "50px",
+            }}
+          >
             <img
               style={{
                 textAlign: "right",
@@ -374,7 +388,12 @@ function Compare(props) {
         </div>
       </div>
       {props.chartTypeValue == "radar" ? (
-        <div style={{ textAlign: "center", marginTop: "-48px" }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "-48px",
+          }}
+        >
           <RadarChart
             options={defaultOptions}
             captions={{
@@ -401,7 +420,6 @@ function Compare(props) {
           <g className="y-axis" />
         </svg>
       )}
-
       <div
         ref={myRef}
         id={"svgCompareLegendsContainer"}

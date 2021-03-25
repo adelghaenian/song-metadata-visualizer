@@ -23,8 +23,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
+import { useLocation } from "react-router-dom";
 import { csv } from "d3";
+
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -38,20 +39,37 @@ const theme = createMuiTheme({
   },
 });
 
-function App() {
+export default function App() {
   const [selected, setSelected] = useState(new Set());
   const [music_data, setMusicData] = useState(new Array());
   const [artist_data, setArtistData] = useState(new Array());
   const [genre_data, setGenreData] = useState(new Array());
-  const [year_data, setYearData] = useState(new Array());
+  const [overyears_data, setOverYearsData] = useState(new Array());
+  const [passed_data, setPassedData] = useState(new Array());
   const [chartTypeValue, setChartTypeValue] = React.useState("radar");
+  const [selectedAttributes, setSelectedAttributes] = React.useState([
+    "acousticness",
+    "energy",
+  ]);
   const [music_preview_id, setMusicPreviewId] = useState(
     "1YYhDizHx7PnDhAhko6cDS"
   );
   const [range_min_value, setRangeMinValue] = useState(7000);
   const [range_max_value, setRangeMaxValue] = useState(10000);
+
   const [loadedDS, setLoadedDS] = useState(0);
   const [open, setOpen] = React.useState(true);
+
+  const handleAttributesChange = function (d) {
+    if (selectedAttributes.includes(d.target.id)) {
+      const filteredItems = selectedAttributes.filter((s) => s !== d.target.id);
+      setSelectedAttributes([...filteredItems]);
+    } else {
+      const newItems = [...selectedAttributes];
+      newItems.push(d.target.id);
+      setSelectedAttributes(newItems);
+    }
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -102,7 +120,7 @@ function App() {
         setArtistData(data);
         handleLoadedDS(2);
         csv(year_data).then((data) => {
-          setYearData(data);
+          setOverYearsData(data);
           handleLoadedDS(3);
           csv(data_with_pca).then((data) => {
             setMusicData(data);
@@ -120,7 +138,6 @@ function App() {
           fluid="true"
           style={{
             paddingRight: "15px",
-            paddingLeft: "20em",
             marginRight: "auto",
             marginLeft: "auto",
           }}
@@ -131,6 +148,7 @@ function App() {
                 onPreviewChange={onPreviewChange}
                 music_preview_id={music_preview_id}
                 music_data={music_data}
+                passed_data={passed_data}
                 onSelectedChange={onSelectedChange}
                 selected={selected}
                 device_height={size.height}
@@ -173,7 +191,18 @@ function App() {
                       />
                     )}
                   ></Route>
-                  <Route path="/overyears" component={Overyears}></Route>
+                  <Route
+                    path="/overyears"
+                    component={() => (
+                      <Overyears
+                        selectedAttributes={selectedAttributes}
+                        handleAttributesChange={handleAttributesChange}
+                        year_data={overyears_data}
+                        device_height={size.height}
+                        device_width={size.width}
+                      />
+                    )}
+                  ></Route>
                   <Route component={NoMatch}></Route>
                 </Switch>
               </Layout>
@@ -222,4 +251,3 @@ function useWindowSize() {
 
   return windowSize;
 }
-export default App;
