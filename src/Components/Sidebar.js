@@ -19,7 +19,6 @@ export default function Sidebar(props) {
     setSearchTerm(term);
   };
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <div>
       {location.pathname == "/overyears" ? (
@@ -32,11 +31,15 @@ export default function Sidebar(props) {
             ></MusicPreview>
             <SearchBox onInputChange={searchTermHandler}> </SearchBox>
             <SearchFilter
+              filterTypeHandle={props.filterTypeHandle}
+              filterType={props.filterType}
               filter={props.filter}
               handleFilter={props.handleFilter}
             ></SearchFilter>
           </Fixed>
           <ResultList
+            filterTypeHandle={props.filterTypeHandle}
+            filterType={props.filterType}
             onPreviewChange={props.onPreviewChange}
             music_data={props.music_data}
             searchTerm={searchTerm}

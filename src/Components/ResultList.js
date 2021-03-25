@@ -12,14 +12,28 @@ export default class ResultList extends React.Component {
   }
   render() {
     const searchTerm = this.props.searchTerm;
-    const results = this.props.music_data.filter((li) =>
-      li.name.toLowerCase().includes(searchTerm)
-    );
+    var results = this.props.music_data;
+
+    if (this.props.filterType == "music") {
+      results = this.props.music_data.filter((li) =>
+        li.name.toLowerCase().includes(searchTerm)
+      );
+    } else if (this.props.filterType == "artist") {
+      results = this.props.music_data.filter((li) =>
+        li.artists.toLowerCase().includes(searchTerm)
+      );
+    } else if (this.props.filterType == "genre") {
+      results = this.props.music_data.filter((li) =>
+        li.genres.toLowerCase().includes(searchTerm)
+      );
+    }
 
     const Row = ({ index, style }) => (
       <div className="test" style={style}>
         <div
-          style={{ display: "-webkit-inline-box" }}
+          style={{
+            display: "-webkit-inline-box",
+          }}
           onClick={() => this.handleSelectedChange(results[index])}
           className={
             this.props.selected.has(results[index])
@@ -27,21 +41,32 @@ export default class ResultList extends React.Component {
               : "song-notselected"
           }
         >
-          <p style={{ width: "3em", textAlign: "left" }}>
-            <img
-              className="play-button"
-              height="25"
-              src={playButton}
-              alt="P"
-              onClick={(e) => {
-                e.stopPropagation();
-                this.props.onPreviewChange(results[index].id);
-              }}
-            />
+          <p
+            style={{
+              width: "3em",
+              textAlign: "left",
+            }}
+          >
+            {this.props.filterType == "music" ? (
+              <img
+                className="play-button"
+                height="25"
+                src={playButton}
+                alt="P"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  this.props.onPreviewChange(results[index].id);
+                }}
+              />
+            ) : (
+              <div> </div>
+            )}
           </p>
           <div class="text ellipsis">
             <span class="text-concat song-text">
-              {index + 1 + "- " + results[index].name}
+              {results[index].name && results[index].name}
+              {results[index].artists && results[index].artists}
+              {results[index].genres && results[index].genres}
             </span>
           </div>
         </div>

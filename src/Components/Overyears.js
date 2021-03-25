@@ -215,7 +215,15 @@ export default function Overyears(props) {
           .style("text-anchor", "start");
 
         // Add the Y Axis
-        svg.append("g").call(d3.axisLeft(y).ticks(0));
+        svg
+          .append("g")
+          .call(d3.axisLeft(y).ticks(2))
+          .selectAll("text")
+          .attr("x", -20)
+          .attr("fill", "#fff")
+          .attr("opacity", "0.2")
+          .attr("dy", ".35em")
+          .style("text-anchor", "start");
       });
     }
   }, [selectedAttributes]);

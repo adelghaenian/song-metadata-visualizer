@@ -24,7 +24,13 @@ const Styles = styled.div`
   }
 `;
 
-function App() {
+function App(props) {
+  const selectionClickHandle = (e) => {
+    if (props.filterType != "music") {
+      props.setFilterType("music");
+      props.setSelected(new Set());
+    }
+  };
   return (
     <Styles>
       <Navbar expand="lg">
@@ -32,7 +38,9 @@ function App() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             <NavLink to="/compare">COMPARE</NavLink>
-            <NavLink to="/selection">SELECTION</NavLink>
+            <NavLink to="/selection" onClick={selectionClickHandle}>
+              SELECTION
+            </NavLink>
             <NavLink to="/overyears">OVER YEARS</NavLink>
           </Nav>
         </Navbar.Collapse>

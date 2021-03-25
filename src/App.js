@@ -16,8 +16,8 @@ import NoMatch from "./Components/NoMatch";
 import Sidebar from "./Components/Sidebar";
 import { Layout } from "./Components/Layout";
 import data_with_pca from "./dataset/data_with_pca.csv";
-import artist_data from "./dataset/data_by_artist.csv";
-import genre_data from "./dataset/data_by_genres.csv";
+import artist_data_csv from "./dataset/data_by_artist.csv";
+import genre_data_csv from "./dataset/data_by_genres.csv";
 import year_data from "./dataset/data_by_year.csv";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -45,7 +45,7 @@ export default function App() {
   const [artist_data, setArtistData] = useState(new Array());
   const [genre_data, setGenreData] = useState(new Array());
   const [overyears_data, setOverYearsData] = useState(new Array());
-  const [passed_data, setPassedData] = useState(new Array());
+  const [filterType, setFilterType] = useState("music");
   const [chartTypeValue, setChartTypeValue] = React.useState("radar");
   const [selectedAttributes, setSelectedAttributes] = React.useState([
     "acousticness",
@@ -71,6 +71,10 @@ export default function App() {
     }
   };
 
+  const filterTypeHandle = (e) => {
+    setSelected(new Set());
+    setFilterType(e.target.value);
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -100,7 +104,6 @@ export default function App() {
         const newSet = new Set(selected);
         newSet.delete(s);
         setSelected(newSet);
-        console.log("found");
       } else {
         const newSet = new Set(selected);
         newSet.add(s);
@@ -113,10 +116,10 @@ export default function App() {
   const size = useWindowSize();
 
   useEffect(() => {
-    csv(genre_data).then((data) => {
+    csv(genre_data_csv).then((data) => {
       setGenreData(data);
       handleLoadedDS(1);
-      csv(artist_data).then((data) => {
+      csv(artist_data_csv).then((data) => {
         setArtistData(data);
         handleLoadedDS(2);
         csv(year_data).then((data) => {
@@ -145,17 +148,28 @@ export default function App() {
           <Row>
             {music_data.length > 0 && (
               <Sidebar
+                filterTypeHandle={filterTypeHandle}
+                filterType={filterType}
                 onPreviewChange={onPreviewChange}
                 music_preview_id={music_preview_id}
-                music_data={music_data}
-                passed_data={passed_data}
+                music_data={
+                  filterType == "music"
+                    ? music_data
+                    : filterType == "artist"
+                    ? artist_data
+                    : genre_data
+                }
                 onSelectedChange={onSelectedChange}
                 selected={selected}
                 device_height={size.height}
               ></Sidebar>
             )}
             <Col>
-              <Navbar />
+              <Navbar
+                filterType={filterType}
+                setFilterType={setFilterType}
+                setSelected={setSelected}
+              />
               <Layout>
                 <Switch>
                   <Route exact path="/">
@@ -183,7 +197,13 @@ export default function App() {
                       <Compare
                         chartTypeValue={chartTypeValue}
                         setChartTypeValue={setChartTypeValue}
-                        music_data={music_data}
+                        music_data={
+                          filterType == "music"
+                            ? music_data
+                            : filterType == "artist"
+                            ? artist_data
+                            : genre_data
+                        }
                         onSelectedChange={onSelectedChange}
                         selected={selected}
                         device_height={size.height}

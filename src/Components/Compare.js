@@ -7,7 +7,6 @@ import barIcon from "../assets/bar.svg";
 import radarIcon from "../assets/radar.svg";
 
 function Compare(props) {
-  const barChartHeight = props.device_height - 248;
   const handleChartType = (event) => {
     props.setChartTypeValue(event.target.id);
   };
@@ -36,12 +35,8 @@ function Compare(props) {
     }),
     shapeProps: () => ({
       className: "shape",
-      mouseEnter: (shape) => {
-        console.log(shape);
-      },
-      mouseLeave: (shape) => {
-        console.log(shape);
-      },
+      mouseEnter: (shape) => {},
+      mouseLeave: (shape) => {},
     }),
     captionProps: () => ({
       className: "caption",
@@ -318,12 +313,12 @@ function Compare(props) {
           return colors[i % 10];
         })
         .text(function (d) {
-          if (d.genre) {
-            return d.genre;
+          if (d.genres) {
+            return d.genres;
           } else if (d.name) {
             return d.name;
-          } else if (d.artist) {
-            return d.artist;
+          } else if (d.artists) {
+            return d.artists;
           } else return "data problem?!";
         });
 
