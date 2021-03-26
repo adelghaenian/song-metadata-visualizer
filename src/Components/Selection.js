@@ -134,7 +134,7 @@ function Selection(props) {
 
           tooltip
             .html(html)
-            .style("left", event.pageX - 270 + "px")
+            .style("left", event.pageX + 38 + "px")
             .style("top", event.pageY - 28 + "px")
             .transition()
             .duration(500) // ms
