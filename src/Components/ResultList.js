@@ -28,8 +28,8 @@ export default class ResultList extends React.Component {
       );
     }
 
-    results = results.filter((el) => !this.props.selected.has(el));
-    results = Array.from(this.props.selected).concat(results);
+    // results = results.filter((el) => !this.props.selected.has(el));
+    // results = Array.from(this.props.selected).concat(results);
 
     const Row = ({ index, style }) => (
       <div className="test" style={style}>
