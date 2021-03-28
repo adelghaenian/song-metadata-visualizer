@@ -38,6 +38,8 @@ export default function Sidebar(props) {
             ></SearchFilter>
           </Fixed>
           <ResultList
+            addMusic={props.addMusic}
+            onAddHandle={props.onAddHandle}
             filterTypeHandle={props.filterTypeHandle}
             filterType={props.filterType}
             onPreviewChange={props.onPreviewChange}

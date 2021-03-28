@@ -36,6 +36,7 @@ const theme = createMuiTheme({
     secondary: {
       main: "#31b475",
     },
+    type: "dark",
   },
 });
 
@@ -79,6 +80,9 @@ export default function App() {
     setOpen(false);
   };
 
+  const addMusic = (data) => {
+    setMusicData([data, ...music_data]);
+  };
   const handleLoadedDS = (i) => {
     setLoadedDS(i);
   };
@@ -148,6 +152,7 @@ export default function App() {
           <Row>
             {music_data.length > 0 && (
               <Sidebar
+                addMusic={addMusic}
                 filterTypeHandle={filterTypeHandle}
                 filterType={filterType}
                 onPreviewChange={onPreviewChange}

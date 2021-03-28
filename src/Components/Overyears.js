@@ -11,7 +11,12 @@ export default function Overyears(props) {
 
   useEffect(() => {
     let container = d3.select(myRef.current);
-    var margin = { top: 20, right: 40, bottom: 30, left: 50 },
+    var margin = {
+        top: 20,
+        right: 40,
+        bottom: 30,
+        left: 50,
+      },
       width = props.device_width - margin.left - margin.right,
       height = props.device_height - 200 - margin.bottom;
 
@@ -189,6 +194,8 @@ export default function Overyears(props) {
             .append("path")
             .data([data])
             .attr("class", "area")
+            .transition()
+            .duration(2500)
             .attr("d", area_speechiness)
             .attr("fill", colors[5])
             .attr("opacity", "0.4");
@@ -254,7 +261,6 @@ export default function Overyears(props) {
         >
           Acousticness
         </div>
-
         <div
           id="danceability"
           class="compare-legend"
@@ -330,7 +336,7 @@ export default function Overyears(props) {
           Valence
         </div>
       </div>
-      <div ref={myRef}></div>
+      <div ref={myRef}> </div>
     </>
   );
 }

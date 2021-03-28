@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import searchIcon from "../assets/search-icon.png";
 
@@ -33,6 +34,7 @@ class SearchBox extends React.Component {
   }
   render() {
     return (
+      // style={{ display: "-webkit-inline-flex" }}
       <form>
         <Search
           type="text"
@@ -40,6 +42,23 @@ class SearchBox extends React.Component {
           placeholder="Search"
           onChange={this.handleChange}
         />
+        {/* <Button
+          variant="contained"
+          color="secondary"
+          style={{
+            height: "48px",
+            width: "48px",
+            minWidth: "0px",
+            fontSize: "1.5em",
+            color: "white",
+            fontWeight: "lighter",
+            marginTop: "5px",
+            marginLeft: "15px",
+            borderRadius: "15px",
+          }}
+        >
+          +
+        </Button> */}
       </form>
     );
   }
