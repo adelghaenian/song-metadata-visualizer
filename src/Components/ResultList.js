@@ -11,7 +11,7 @@ export default class ResultList extends React.Component {
     this.props.onSelectedChange(s);
   }
   render() {
-    const searchTerm = this.props.searchTerm;
+    const searchTerm = this.props.searchTerm.toLowerCase();
     var results = this.props.music_data;
 
     if (this.props.filterType == "music") {
