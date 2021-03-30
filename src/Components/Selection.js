@@ -48,8 +48,25 @@ function Selection(props) {
         .attr("id", "svgScatterContainer")
         .attr("width", props.device_width - 350)
         .attr("height", props.device_height - 268)
+        .call(
+          d3.zoom().on("zoom", (event) => {
+            svg.attr("transform", event.transform);
+          })
+        )
         .append("g")
         .attr("transform", "translate(10,0)");
+
+      var defs = svg.append("defs");
+
+      //Filter for the outside glow
+      var filter = defs.append("filter").attr("id", "glow");
+      filter
+        .append("feGaussianBlur")
+        .attr("stdDeviation", "1.2")
+        .attr("result", "coloredBlur");
+      var feMerge = filter.append("feMerge");
+      feMerge.append("feMergeNode").attr("in", "coloredBlur");
+      feMerge.append("feMergeNode").attr("in", "SourceGraphic");
 
       // Add X axis
       var x = d3
@@ -99,6 +116,20 @@ function Selection(props) {
           return i * 1;
         })
         .duration(1000)
+        .style("filter", function (d, i) {
+          if (props.selected.has(d)) {
+            return "url(#glow)";
+          } else {
+            return "";
+          }
+        })
+        .attr("fill", function (d, i) {
+          if (props.selected.has(d)) {
+            return "#43D38E";
+          } else {
+            return "#8dac96";
+          }
+        })
         .attr("r", function (d, i) {
           if (props.selected.has(d)) {
             return 8;
