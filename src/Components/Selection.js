@@ -226,7 +226,7 @@ function Selection(props) {
           value={rangeValue}
           min={0}
           step={250}
-          max={174390}
+          max={69750}
           onChange={handleRangeChange}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"

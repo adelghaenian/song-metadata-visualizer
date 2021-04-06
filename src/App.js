@@ -15,7 +15,7 @@ import Overyears from "./Components/Overyears";
 import NoMatch from "./Components/NoMatch";
 import Sidebar from "./Components/Sidebar";
 import { Layout } from "./Components/Layout";
-import data_with_pca from "./dataset/data_with_pca.csv";
+import data_with_pca from "./dataset/compact_data.csv";
 import artist_data_csv from "./dataset/data_by_artist.csv";
 import genre_data_csv from "./dataset/data_by_genres.csv";
 import year_data from "./dataset/data_by_year.csv";
