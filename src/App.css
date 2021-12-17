@@ -60,8 +60,7 @@ body {
 }
 .song-text {
   font-weight: bold;
-  font-size: medium;
-  margin-top: 5px;
+  font-size: small;
 }
 .song-selected {
   color: white;
@@ -76,6 +75,12 @@ body {
   padding-left: 10px;
 }
 
+.grad{
+  display: -webkit-inline-flex;
+  width: 200px;
+  height: 20px;
+  background-image: linear-gradient(to right, orange , red);
+}
 .add-music {
   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='grey' stroke-width='2' stroke-dasharray='4%2c 8' stroke-dashoffset='11' stroke-linecap='square'/%3e%3c/svg%3e");
   border-radius: 8px;

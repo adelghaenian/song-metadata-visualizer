@@ -37,11 +37,11 @@ function App(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <NavLink to="/compare">COMPARE</NavLink>
-            <NavLink to="/selection" onClick={selectionClickHandle}>
-              SELECTION
+            <NavLink to="/general">GENERAL</NavLink>
+            <NavLink to="/compare">RECOMMENDATION</NavLink>
+            <NavLink to="/selection">
+              PREDICTION
             </NavLink>
-            <NavLink to="/overyears">OVER YEARS</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import Slider from "@material-ui/core/Slider";
 import Button from "@material-ui/core/Button";
-
+import { nest } from 'd3-collection';
 function Selection(props) {
-  const myRef = useRef();
+  const selectionRef = useRef();
   const [rangeValue, setRangeValue] = React.useState([
     props.range_min_value,
     props.range_max_value,
@@ -14,7 +14,10 @@ function Selection(props) {
     let buffer = [...newValue];
     setRangeValue(buffer);
   };
-
+  const colors = {
+    selected: [],
+    notSelected: d3["schemeTableau10"]
+  }
   const handleRangeChangeConfirmed = () => {
     if (rangeValue[1] - rangeValue[0] >= 5000) {
       window.alert(
@@ -28,10 +31,10 @@ function Selection(props) {
     props.onSelectedChange(d);
   };
   useEffect(() => {
-    let container = d3.select(myRef.current);
+    let container = d3.select(selectionRef.current);
     var svg = container.select("#svgScatterContainer");
     if (svg.empty()) {
-      let container = d3.select(myRef.current);
+      let container = d3.select(selectionRef.current);
       var data = props.music_data.slice(
         props.range_min_value,
         props.range_max_value
@@ -46,7 +49,7 @@ function Selection(props) {
       svg = container
         .append("svg")
         .attr("id", "svgScatterContainer")
-        .attr("width", props.device_width - 350)
+        .attr("width", props.device_width - 650)
         .attr("height", props.device_height - 268)
         .call(
           d3.zoom().on("zoom", (event) => {
@@ -69,24 +72,139 @@ function Selection(props) {
       feMerge.append("feMergeNode").attr("in", "SourceGraphic");
 
       // Add X axis
-      var x = d3
-        .scaleLinear()
-        .domain([-3, 5])
-        .range([0, props.device_width - 350]);
+      var x, y
+      if (props.rDimensionMethod === "pca") {
+        x = d3
+          .scaleLinear()
+          .domain([-1, 1.5])
+          .range([0, props.device_width - 550]);
+
+        y = d3
+          .scaleLinear()
+          .domain([-.5, 1.2])
+          .range([props.device_height - 380, 0]);
+      } else {
+        x = d3
+          .scaleLinear()
+          .domain([-55, 65])
+          .range([0, props.device_width - 550]);
+
+        y = d3
+          .scaleLinear()
+          .domain([-45, 55])
+          .range([props.device_height - 380, 0]);
+      }
+
       svg
         .append("g")
         .attr("transform", "translate(0,0)")
         .call(d3.axisBottom(x))
         .style("opacity", 0);
-
-      // Add Y axis
-      var y = d3
-        .scaleLinear()
-        .domain([-2, 4.5])
-        .range([props.device_height - 380, 0]);
       svg.append("g").call(d3.axisLeft(y)).style("opacity", 0);
 
+
+
+      var nested = nest()
+        .key(function (d) {
+          if (props.classificationMethod === "kmeans")
+            return d.kmeans;
+          if (props.classificationMethod === "hierarchical")
+            if (props.hierarchicalMethod === "ward")
+              return d.ward;
+          if (props.hierarchicalMethod === "average")
+            return d.average;
+          if (props.hierarchicalMethod === "single")
+            return d.single;
+          if (props.hierarchicalMethod === "complete")
+            return d.complete;
+        })
+        .rollup(function (d) {
+          return d.map(function (v) {
+            if (props.rDimensionMethod === "tsne")
+              return [x(v.tsne1), y(v.tsne2)];
+            if (props.rDimensionMethod === "pca")
+              return [x(v.pca1), y(v.pca2)];
+          });
+        })
+        .entries(data);
+
+      if (props.convexHullsChecked) {
+
+        svg
+          .append("g")
+          .attr("class", "hulls")
+          .selectAll("polygon")
+          .data(nested)
+          .enter()
+          .append("polygon")
+          .attr("opacity", 0.03)
+          .attr("stroke-width", 30)
+          .attr("stroke-linejoin", "round")
+          .attr("fill", function (d) {
+            return colors.notSelected[d.key];
+          })
+          .attr("stroke", function (d) {
+            return colors.notSelected[d.key];
+          })
+          .attr("points", function (d) {
+            return d3.polygonHull(d.value);
+          });
+
+
+        svg
+          .selectAll("polygon")
+          .on("mouseover", function (event, d) {
+            d3.select(this)
+              .transition()
+              .duration(200)
+              .style("opacity", .15)
+          })
+          .on("mouseout", function (event, d) {
+            d3.select(this)
+              .transition()
+              .duration(200)
+              .style("opacity", .03)
+          })
+
+
+
+
+      }
+      var legend = svg
+        .selectAll(".legend")
+        .data(nested)
+        .enter()
+        .append("g")
+        .attr("class", "legend")
+        .attr("transform", function (d, i) {
+          return "translate(0," + i * 20 + ")";
+        });
+
+      legend
+        .append("rect")
+        .attr("x", props.device_width - 680 - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", function (d) {
+          return colors.notSelected[d.key]
+        });
+
+      legend
+        .append("text")
+        .attr("x", props.device_width - 680 - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .style("fill", "white ")
+        .text(function (d) {
+          if (
+            d !== -1)
+            return "Class " + d.key;
+          return "Class undefined";
+        });
+
       // Add dots
+
       svg
         .append("g")
         .selectAll("dot")
@@ -94,26 +212,62 @@ function Selection(props) {
         .enter()
         .append("circle")
         .attr("cx", function (d) {
-          return x(d.X);
+          if (props.rDimensionMethod === "tsne")
+            return x(d.tsne1);
+          else if (props.rDimensionMethod === "pca") {
+            return x(d.pca1);
+          }
         })
         .attr("cy", function (d) {
-          return y(d.Y);
+          if (props.rDimensionMethod === "tsne")
+            return y(d.tsne2);
+          else if (props.rDimensionMethod === "pca")
+            return y(d.pca2);
         })
         .attr("r", 0)
         .attr("style", function (d) {
+          var col
+
+          if (props.classificationMethod === "kmeans") {
+            col = colors.notSelected[d.kmeans]
+          } else if (props.classificationMethod === "optics") {
+            // col = colors.notSelected[d.optics] //
+          } else if (props.classificationMethod === "hierarchical") {
+            switch (props.hierarchicalMethod) {
+              case "ward":
+                col = colors.notSelected[d.ward]
+                if (d.ward == -1) col = "#ffffff"
+                break;
+              case "complete":
+                col = colors.notSelected[d.complete]
+                if (d.complete == -1) col = "#ffffff"
+                break;
+              case "average":
+                col = colors.notSelected[d.average]
+                if (d.average == -1) col = "#ffffff"
+                break;
+              case "single":
+                col = colors.notSelected[d.single]
+                if (d.single == -1) col = "#ffffff"
+                break;
+              default:
+                break;
+            }
+          }
+
           if (props.selected.has(d))
-            return `  fill: #75ad86;
-          opacity: 1;`;
+            return `  fill: ` + col + `;
+                  opacity: 1;`;
           else
-            return `  fill: #75ada0;
-        opacity: 0.5;`;
+            return `  fill: ` + col + `;
+                  opacity: 0.5;`;
         });
 
       svg
         .selectAll("circle")
         .transition() //values after transition
         .delay(function (d, i) {
-          return i * 1;
+          return i * 0.5;
         })
         .duration(1000)
         .style("filter", function (d, i) {
@@ -151,16 +305,25 @@ function Selection(props) {
             .attr("r", 8)
             .style("opacity", 1);
 
+          var X, Y
+          if (props.rDimensionMethod === "tsne") {
+            X = d.tsne1
+            Y = d.tsne2
+          }
+          else if (props.rDimensionMethod === "pca") {
+            X = d.pca1
+            Y = d.pca2
+          }
           var html =
             "<b>" +
             "-" +
             d.name +
             "</b> <br/>" +
             "(X=" +
-            Number.parseFloat(d.X).toPrecision(3) +
+            Number.parseFloat(X).toPrecision(3) +
             ", Y=" +
             "<span>" +
-            Number.parseFloat(d.Y).toPrecision(3) +
+            Number.parseFloat(Y).toPrecision(3) +
             ")</span>";
 
           tooltip
@@ -214,7 +377,7 @@ function Selection(props) {
       </h2>
 
       <div
-        ref={myRef}
+        ref={selectionRef}
         id={"scatterContainer"}
         style={{ height: props.device_height - 268 }}
       ></div>

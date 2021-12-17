@@ -2,6 +2,7 @@ import { style } from "d3-selection";
 import React, { useState, useEffect } from "react";
 import { FixedSizeList as List } from "react-window";
 import playButton from "../assets/play-button.svg";
+import recommendIcon from "../assets/recommend.svg";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -82,7 +83,7 @@ export default function ResultList(props) {
             console.log("Response:", response);
             var data = {
               id: response.id.toString(),
-              name: response_.name.toString(),
+              // name: response_.name.toString(),
               acousticness: response.acousticness.toString(),
               danceability: response.danceability.toString(),
               energy: response.energy.toString(),
@@ -108,23 +109,20 @@ export default function ResultList(props) {
 
   const searchTerm = props.searchTerm.toLowerCase();
   var results = props.music_data;
-
   if (props.filterType == "music") {
-    results = props.music_data.filter((li) =>
-      li.name.toLowerCase().includes(searchTerm)
-    );
-  } else if (props.filterType == "artist") {
+    results = props.music_data.filter((li) => li.name.toLowerCase().includes(searchTerm));
+  }
+  else if (props.filterType == "artist") {
     results = props.music_data.filter((li) =>
       li.artists.toLowerCase().includes(searchTerm)
+
     );
   } else if (props.filterType == "genre") {
     results = props.music_data.filter((li) =>
       li.genres.toLowerCase().includes(searchTerm)
+
     );
   }
-
-  // results = results.filter((el) => !props.selected.has(el));
-  // results = Array.from(props.selected).concat(results);
 
   const Row = ({ index, style }) => (
     <div className="test" style={style}>
@@ -141,21 +139,38 @@ export default function ResultList(props) {
       >
         <p
           style={{
+            marginTop: "-5px",
             width: "3em",
             textAlign: "left",
           }}
         >
           {props.filterType == "music" ? (
-            <img
-              className="play-button"
-              height="25"
-              src={playButton}
-              alt="P"
-              onClick={(e) => {
-                e.stopPropagation();
-                props.onPreviewChange(results[index].id);
-              }}
-            />
+            <div style={{ display: "-webkit-inline-flex" }}>
+
+              <img
+                className="play-button"
+                height="18"
+                src={playButton}
+                alt="P"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  props.onPreviewChange(results[index].id);
+                }}
+              />
+
+              <img
+                className="play-button"
+                height="18"
+                src={recommendIcon}
+                alt="P"
+                style={{ marginLeft: "3px" }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  props.openRecommendUI(results[index].id);
+                }}
+              />
+
+            </div>
           ) : (
             <div> </div>
           )}
@@ -204,12 +219,10 @@ export default function ResultList(props) {
       <List
         width={340}
         height={
-          location.pathname === "/compare"
-            ? props.device_height - 403
-            : props.device_height - 323
+          props.device_height - 100
         }
         itemCount={results.length}
-        itemSize={55}
+        itemSize={35}
       >
         {Row}
       </List>

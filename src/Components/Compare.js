@@ -22,8 +22,7 @@ function Compare(props) {
     dots: true, // show dots?
     zoomDistance: 1.3, // where on the axes are the captions?
     setViewBox: (options) =>
-      `-${options.captionMargin} 0 ${
-        options.size + options.captionMargin * 2
+      `-${options.captionMargin} 0 ${options.size + options.captionMargin * 2
       } ${options.size}`, // custom viewBox ?
     // smoothing: noSmoothing, // shape smoothing function
     axisProps: () => ({
@@ -35,8 +34,8 @@ function Compare(props) {
     }),
     shapeProps: () => ({
       className: "shape",
-      mouseEnter: (shape) => {},
-      mouseLeave: (shape) => {},
+      mouseEnter: (shape) => { },
+      mouseLeave: (shape) => { },
     }),
     captionProps: () => ({
       className: "caption",
@@ -80,7 +79,7 @@ function Compare(props) {
     var svg_bar_container = bar_container.append("g");
     svg_bar_container.attr("transform", "translate(50,60)");
 
-    for (var i = 0; i < 8; i = i + 1) {}
+    for (var i = 0; i < 8; i = i + 1) { }
     svg_bar_container
       .selectAll("accoustic_bars")
       .data(props.selected)

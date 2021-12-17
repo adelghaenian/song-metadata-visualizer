@@ -12,13 +12,13 @@ export default function Overyears(props) {
   useEffect(() => {
     let container = d3.select(myRef.current);
     var margin = {
-        top: 20,
-        right: 40,
-        bottom: 30,
-        left: 50,
-      },
+      top: 20,
+      right: 40,
+      bottom: 30,
+      left: 50,
+    },
       width = props.device_width - margin.left - margin.right,
-      height = props.device_height - 200 - margin.bottom;
+      height = props.device_height - 200 - margin.bottom - 800;
 
     // set the ranges
     var x = d3.scaleLinear().range([0, width]);
@@ -216,6 +216,7 @@ export default function Overyears(props) {
           .selectAll("text")
           .attr("y", 10)
           .attr("fill", "#fff")
+
           .attr("opacity", "0.6")
           .attr("dy", ".35em")
           .attr("transform", "rotate(45)")

@@ -21,7 +21,7 @@ export default function Sidebar(props) {
   const location = useLocation();
   return (
     <div>
-      {location.pathname == "/overyears" ? (
+      {location.pathname != "/compare" ? (
         <></>
       ) : (
         <div className="fixed-sidebar">
@@ -38,6 +38,8 @@ export default function Sidebar(props) {
             ></SearchFilter>
           </Fixed>
           <ResultList
+            openRecommendUI={props.openRecommendUI}
+            classified_data={props.classified_data}
             addMusic={props.addMusic}
             onAddHandle={props.onAddHandle}
             filterTypeHandle={props.filterTypeHandle}

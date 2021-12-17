@@ -16,7 +16,7 @@ export default class MusicPreview extends React.Component {
         style={{
           border: "0",
           width: "100%",
-          height: "235px",
+          height: "85px",
         }}
         allowFullScreen
         allow="encrypted-media"
