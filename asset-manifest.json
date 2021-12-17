@@ -1,32 +1,35 @@
 {
   "files": {
-    "main.css": "/song-metadata-visualizer/static/css/main.26f49c9c.chunk.css",
-    "main.js": "/song-metadata-visualizer/static/js/main.50533849.chunk.js",
-    "main.js.map": "/song-metadata-visualizer/static/js/main.50533849.chunk.js.map",
-    "runtime-main.js": "/song-metadata-visualizer/static/js/runtime-main.7ad84d52.js",
-    "runtime-main.js.map": "/song-metadata-visualizer/static/js/runtime-main.7ad84d52.js.map",
+    "main.css": "/song-metadata-visualizer/static/css/main.4d62b4c0.chunk.css",
+    "main.js": "/song-metadata-visualizer/static/js/main.2c1ca823.chunk.js",
+    "main.js.map": "/song-metadata-visualizer/static/js/main.2c1ca823.chunk.js.map",
+    "runtime-main.js": "/song-metadata-visualizer/static/js/runtime-main.58f34774.js",
+    "runtime-main.js.map": "/song-metadata-visualizer/static/js/runtime-main.58f34774.js.map",
     "static/css/2.150d169a.chunk.css": "/song-metadata-visualizer/static/css/2.150d169a.chunk.css",
-    "static/js/2.62cbefac.chunk.js": "/song-metadata-visualizer/static/js/2.62cbefac.chunk.js",
-    "static/js/2.62cbefac.chunk.js.map": "/song-metadata-visualizer/static/js/2.62cbefac.chunk.js.map",
-    "static/js/3.8c6b4fcd.chunk.js": "/song-metadata-visualizer/static/js/3.8c6b4fcd.chunk.js",
-    "static/js/3.8c6b4fcd.chunk.js.map": "/song-metadata-visualizer/static/js/3.8c6b4fcd.chunk.js.map",
+    "static/js/2.457b11e0.chunk.js": "/song-metadata-visualizer/static/js/2.457b11e0.chunk.js",
+    "static/js/2.457b11e0.chunk.js.map": "/song-metadata-visualizer/static/js/2.457b11e0.chunk.js.map",
+    "static/js/3.8d53e5d5.chunk.js": "/song-metadata-visualizer/static/js/3.8d53e5d5.chunk.js",
+    "static/js/3.8d53e5d5.chunk.js.map": "/song-metadata-visualizer/static/js/3.8d53e5d5.chunk.js.map",
     "index.html": "/song-metadata-visualizer/index.html",
     "static/css/2.150d169a.chunk.css.map": "/song-metadata-visualizer/static/css/2.150d169a.chunk.css.map",
-    "static/css/main.26f49c9c.chunk.css.map": "/song-metadata-visualizer/static/css/main.26f49c9c.chunk.css.map",
-    "static/js/2.62cbefac.chunk.js.LICENSE.txt": "/song-metadata-visualizer/static/js/2.62cbefac.chunk.js.LICENSE.txt",
+    "static/css/main.4d62b4c0.chunk.css.map": "/song-metadata-visualizer/static/css/main.4d62b4c0.chunk.css.map",
+    "static/js/2.457b11e0.chunk.js.LICENSE.txt": "/song-metadata-visualizer/static/js/2.457b11e0.chunk.js.LICENSE.txt",
     "static/media/bar.98aff0fa.svg": "/song-metadata-visualizer/static/media/bar.98aff0fa.svg",
-    "static/media/compact_data.f884b22f.csv": "/song-metadata-visualizer/static/media/compact_data.f884b22f.csv",
+    "static/media/clustering_and_genre.32bca9ae.csv": "/song-metadata-visualizer/static/media/clustering_and_genre.32bca9ae.csv",
     "static/media/data_by_artist.4918a4cd.csv": "/song-metadata-visualizer/static/media/data_by_artist.4918a4cd.csv",
     "static/media/data_by_genres.37662d1c.csv": "/song-metadata-visualizer/static/media/data_by_genres.37662d1c.csv",
     "static/media/data_by_year.53a349c4.csv": "/song-metadata-visualizer/static/media/data_by_year.53a349c4.csv",
-    "static/media/play-button.774660e9.svg": "/song-metadata-visualizer/static/media/play-button.774660e9.svg",
-    "static/media/radar.680555f8.svg": "/song-metadata-visualizer/static/media/radar.680555f8.svg"
+    "static/media/line_for_songs_genre_count.0588915e.csv": "/song-metadata-visualizer/static/media/line_for_songs_genre_count.0588915e.csv",
+    "static/media/pie_artists_genre.d7bd5237.csv": "/song-metadata-visualizer/static/media/pie_artists_genre.d7bd5237.csv",
+    "static/media/play-button.70cc5873.svg": "/song-metadata-visualizer/static/media/play-button.70cc5873.svg",
+    "static/media/radar.680555f8.svg": "/song-metadata-visualizer/static/media/radar.680555f8.svg",
+    "static/media/recommend.d0db0192.svg": "/song-metadata-visualizer/static/media/recommend.d0db0192.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.7ad84d52.js",
+    "static/js/runtime-main.58f34774.js",
     "static/css/2.150d169a.chunk.css",
-    "static/js/2.62cbefac.chunk.js",
-    "static/css/main.26f49c9c.chunk.css",
-    "static/js/main.50533849.chunk.js"
+    "static/js/2.457b11e0.chunk.js",
+    "static/css/main.4d62b4c0.chunk.css",
+    "static/js/main.2c1ca823.chunk.js"
   ]
 }
